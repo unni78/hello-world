@@ -70,7 +70,23 @@ return htmltemplate;
 app.get('/',function(req,res){
 res.sendFile(path.join(__dirname,'ui','index.html'));
 //res.send('Hai Unni....WELCOME');
-})
+});
+
+app.get('/ui/main.js',function(req,res){
+	res.sendFile(path.join(__dirname,'ui','main.js'));
+});
+
+var ctr = 0 ; //every time the server is restarted, the counter is reset
+
+//Increment the counter each time the '/counter' url is hit
+app.get('/counter',function(req,res){
+	ctr = ctr + 1;
+	res.send(ctr.toString());
+});
+
+app.get('/ui/Unni.jpg',function(req,res){
+	res.sendFile(path.join(__dirname,'ui','Unni.jpg'));
+});
 
 app.get('/:articleName',function(req,res)
 {
@@ -78,7 +94,7 @@ app.get('/:articleName',function(req,res)
 //res.sendFile(path.join(__dirname,'ui','article-one.html'));
 var art=req.params.articleName;
 res.send(createTemplate(articles[art]));
-})
+});
 
 //Below repeaated calls to articles replaced by above
 /*
@@ -101,7 +117,7 @@ res.sendFile(path.join(__dirname,'ui','article-three.html'));
 app.get('/ui/Style.css',function(req,res){
 res.sendFile(path.join(__dirname,'ui','Style.css'));
 //res.send('Article three would be served from here');
-})
+});
 
 
 app.listen(8080,function(){
